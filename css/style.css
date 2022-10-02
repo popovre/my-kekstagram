@@ -37,6 +37,10 @@ body {
   background-color: #232321;
 }
 
+.tomato{
+background-color: tomato;
+}
+
 main {
   position: relative;
 }
