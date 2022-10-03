@@ -7,8 +7,6 @@ const getRequiredLength = (inputText,requiredLength) => {
   }
   return false;
 }
-console.log(getRequiredLength(inputText,requiredLength));
-
 getRequiredLength(inputText,requiredLength);
 
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -28,4 +26,4 @@ let getRandomIntInclusive = (min, max) => {
   let random = Math.random(); //random from 0 to 1 (floor)
   return Math.floor(random * max - random * min + random) + min; //Максимум и минимум включаются
 }
-console.log(getRandomIntInclusive(4,8));
+getRandomIntInclusive(4,8);
