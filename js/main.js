@@ -1,7 +1,7 @@
 const inputText = 'hello';
 const requiredLength = 5;
-const getRequiredLength = (Text,Length) => {
-  if (Text.length <= Length){
+const getRequiredLength = (text,length) => {
+  if (text.length <= length){
     return true;
   }
   return false;
