@@ -73,4 +73,3 @@ const getPhotoGallery = (photoDescription) => {
 
 const photoGallery = getPhotoGallery(getPhotoDescription);
 
-console.log(photoGallery);
