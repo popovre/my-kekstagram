@@ -55,21 +55,26 @@ const DESCRIPTIONS = [
 
 const getPhotoDescription = function(index){
   return {
-    id: index,
-    url: `photos/${index}.jpg`,
-    description: DESCRIPTIONS[index - 1],
+    id: index + 1,
+    url: `photos/${index + 1}.jpg`,
+    description: DESCRIPTIONS[index],
     likes: getRandomIntInclusive(15,200),
     comments: getRandomIntInclusive(0,200)
   };
 };
 
-const getPhotoGallery = (photoDescription) => {
-  const gallery = [];
-  for(let i = 1;i <= GALLERY_LENGTH;i++){
-    gallery.push(photoDescription(i));
-  }
-  return gallery;
-};
 
-const photoGallery = getPhotoGallery(getPhotoDescription);
+const galleryPhoto = Array.from({ length:GALLERY_LENGTH }, (v, k) => getPhotoDescription(k));
+// console.log(galleryPhoto);
+
+// второй вариант решения
+// const getPhotoGallery = (photoDescription) => {
+//   const gallery = [];
+//   for(let i = 1;i <= GALLERY_LENGTH;i++){
+//     gallery.push(photoDescription(i));
+//   }
+//   return gallery;
+// };
+
+// const photoGallery = getPhotoGallery(getPhotoDescription);
 
