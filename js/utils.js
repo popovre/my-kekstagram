@@ -8,7 +8,6 @@ const getRequiredLength = (text,length) => {
   }
   return false;
 };
-getRequiredLength('hi',5);
 
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 const getRandomIntInclusive = (min, max) => {
@@ -27,6 +26,5 @@ const getRandomIntInclusive = (min, max) => {
   const random = Math.random();
   return Math.floor(random * max - random * min + random) + min;
 };
-getRandomIntInclusive(1,10);
 
 export {getRequiredLength,getRandomIntInclusive};

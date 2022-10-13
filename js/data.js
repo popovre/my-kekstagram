@@ -1,4 +1,4 @@
-import {GALLERY_LENGTH,DESCRIPTIONS} from './storage.js';
+import {GALLERY_LENGTH,DESCRIPTIONS} from './constants.js';
 import {getRandomIntInclusive} from './utils.js';
 
 const getPhotoDescription = function(index){
