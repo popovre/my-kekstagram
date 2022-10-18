@@ -1,1 +1,1 @@
-import {galleryPhotos} from './data.js';
+import './miniatures.js';

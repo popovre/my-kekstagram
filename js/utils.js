@@ -2,6 +2,7 @@ import './events.js';
 import './editing.js';
 import './upload.js';
 
+
 const getRequiredLength = (text,length) => {
   if (text.length <= length){
     return true;
