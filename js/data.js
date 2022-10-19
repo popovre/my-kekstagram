@@ -11,6 +11,6 @@ const getPhotoDescription = function(index){
   };
 };
 
-const createGalleryPhotos = () => Array.from({ length:GALLERY_LENGTH }, (_value, ind) => getPhotoDescription(ind));
+const galleryPhotos = Array.from({ length:GALLERY_LENGTH }, (_value, ind) => getPhotoDescription(ind));
 
-export {createGalleryPhotos};
+export {galleryPhotos};
