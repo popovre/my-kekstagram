@@ -1,3 +1,2 @@
-import {galleryPhotos} from './data.js';
-import {getUsersGallery} from './miniatures.js';
+import {getUsersGallery, galleryPhotos} from './miniatures.js';
 getUsersGallery(galleryPhotos);
