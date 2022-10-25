@@ -52,7 +52,7 @@
                   </fieldset>
 
                   <!-- Кнопка для закрытия формы редактирования изображения -->
-                  <button type="reset" class="img-upload__cancel  cancel" id="upload-cancel" tabindex="1">Закрыть</button>
+                  <button type="reset" class="img-upload__cancel  cancel" id="upload-cancel">Закрыть</button>
                 </div>
 
                 <!-- Наложение эффекта на изображение -->
@@ -105,11 +105,16 @@
 
                 <!-- Добавление комментария к изображению -->
                 <fieldset class="img-upload__text text">
-                    <textarea class="text__description" name="description" placeholder="Ваш комментарий..." required></textarea>
+                  <div class="text__container">
+                    <textarea class="text__description" name="description" placeholder="Ваш комментарий..." required
+                    data-pristine-required-message="Обязательное поле"
+                    data-pristine-minlength-message="Минимальная длина 20 символов"
+                    data-pristine-maxlength-message="Максимальная длина 140 символов"></textarea>
+                  </div>
                 </fieldset>
 
                 <!-- Кнопка для отправки данных на сервер -->
-                <button type="submit" class="img-upload__submit" id="upload-submit" tabindex="0">Опубликовать</button>
+                <button type="submit" class="img-upload__submit" id="upload-submit" minlength="20" maxlength="140">Опубликовать</button>
               </div>
             </div>
           </form>
@@ -166,5 +171,6 @@
   </template>
 
 </body>
+<script src="vendor/pristine/pristine.min.js"></script>
 <script src="js/main.js" type="module"></script>
 </html>
