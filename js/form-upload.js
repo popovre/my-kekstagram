@@ -4,10 +4,10 @@ const body = document.querySelector('body');
 const uploadFile = body.querySelector('#upload-file');
 const uploadModal = body.querySelector('.img-upload__overlay');
 const modalCloseButton = uploadModal.querySelector('.img-upload__cancel');
-let modalScaleControl = uploadModal.querySelector('.scale__control--value');
-let modalEffectLevel = uploadModal.querySelector('.effect-level__value');
-let modalEffectRadio = uploadModal.querySelectorAll('.effects__radio');
-let modalComment = uploadModal.querySelectorAll('.img-upload__text');
+const modalScaleControl = uploadModal.querySelector('.scale__control--value');
+const modalEffectLevel = uploadModal.querySelector('.effect-level__value');
+const modalEffectRadio = uploadModal.querySelectorAll('.effects__radio');
+const modalComment = uploadModal.querySelectorAll('.text__description');
 
 const onModalEcsKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -30,6 +30,7 @@ const closeUploadModal = () => {
 
   uploadFile.value = '';
   modalScaleControl.value = '';
+  modalEffectLevel.value = '';
   modalEffectRadio.forEach((input) => {
     input.value = '';
   });
@@ -44,6 +45,3 @@ uploadFile.addEventListener('change', () => {
 modalCloseButton.addEventListener('click', () => {
   closeUploadModal();
 });
-
-openUploadModal();
-
