@@ -714,7 +714,17 @@ main {
   border-radius: 5px;
 }
 
+.text__description--error {
+  color: #ff6347;
+}
 
+.text__description--invalid {
+  color: #0000ff;
+}
+
+.text__description--invalid {
+  color: #008000;
+}
 /**
   * Кнопка для отправки изображения
   */
