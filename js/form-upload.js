@@ -1,4 +1,5 @@
 import {isEscapeKey} from './utils.js';
+import {uploadForm, onUploadFormSubmit} from './form-validation.js';
 
 const body = document.querySelector('body');
 const uploadFile = body.querySelector('#upload-file');
@@ -22,6 +23,7 @@ const openUploadModal = () => {
   body.classList.add('modal-open');
 
   document.addEventListener('keydown', onModalEcsKeydown);
+  uploadForm.addEventListener('submit', onUploadFormSubmit);
 };
 
 const closeUploadModal = () => {
@@ -36,6 +38,8 @@ const closeUploadModal = () => {
   });
   modalComment.value = '';
   document.removeEventListener('keydown', onModalEcsKeydown);
+  uploadForm.removeEventListener('submit', onUploadFormSubmit);
+  uploadForm.reset();
 };
 
 uploadFile.addEventListener('change', () => {

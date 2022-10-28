@@ -10,18 +10,22 @@ const pristine = new Pristine(uploadForm, {
   errorTextTag: 'div',
 });
 
-const validateDescriptionText = (value) => value.length >= MINDESCRIPTIONLENGT && value.length <= MAXDESCRIPTIONLENGT;
+const validateDescriptionText = (value) => value.length >= MINDESCRIPTIONLENGT && value.length <= (MAXDESCRIPTIONLENGT - 1);
 
 pristine.addValidator(
   uploadForm.querySelector('.text__description'),
   validateDescriptionText,
-  'От 20 до 140 символов, зачем я здесь?'
+  'Введите от 20 до 140 символов'
 );
 
-uploadForm.addEventListener('submit', (evt) => {
+const onUploadFormSubmit = (evt) => {
   const isValid = pristine.validate();
 
   if(!isValid) {
     evt.preventDefault();
   }
-});
+};
+
+export {uploadForm, onUploadFormSubmit};
+
+
