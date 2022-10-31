@@ -23,9 +23,13 @@ const getRandomIntInclusive = (min, max) => {
   return Math.floor(random * max - random * min + random) + min;
 };
 
+export {getRequiredLength,getRandomIntInclusive};
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 export {isEscapeKey};
 
-export {getRequiredLength,getRandomIntInclusive};
+String.prototype.delOneLast = function () {
+  return this.slice(0, -1);
+};
 

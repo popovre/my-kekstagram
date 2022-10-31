@@ -1,5 +1,6 @@
 import {isEscapeKey} from './utils.js';
 import {uploadForm, onUploadFormSubmit} from './form-validation.js';
+import './form-activities.js';
 
 const body = document.querySelector('body');
 const uploadFile = body.querySelector('#upload-file');
@@ -14,6 +15,7 @@ const onModalEcsKeydown = (evt) => {
   }
 };
 
+uploadModal.classList.remove('hidden');
 const openUploadModal = () => {
   uploadModal.classList.remove('hidden');
   body.classList.add('modal-open');
