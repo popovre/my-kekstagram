@@ -33,3 +33,6 @@ String.prototype.delOneLast = function () {
   return this.slice(0, -1);
 };
 
+const getIntToFloat = (intNumber) => parseFloat(String(intNumber));
+
+export {getIntToFloat};
