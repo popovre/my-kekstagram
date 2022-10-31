@@ -1,13 +1,22 @@
+import {MINSCALE, MAXSCALE} from './constants.js';
+
 const scaleFieldset = document.querySelector('.img-upload__scale');
-const scaleSmallerButton = scaleFieldset.querySelector('.scale__control--smaller');
-const scaleBiggerButton = scaleFieldset.querySelector('.scale__control--bigger');
 const scaleValueInput = scaleFieldset.querySelector('.scale__control--value');
-// console.log(scaleValue);
-// давай сделаем обработчик на филдсет scaleFieldset, по всплытию будет один обработчик на 2 кнопки, если плюс, то scale будет плюс, если минус, то scale будет плюс.
-const onScaleSmallerButton = () => {
-  let scaleValue = Number(scaleValueInput.value.delOneLast());
-  scaleValue = scaleValue - 25;
-  scaleValueInput.value = String(scaleValue) + '%';
+const onScaleButton = (evt) => {
+  let scaleValue = +(scaleValueInput.value.delOneLast());
+  if (evt.target.classList.contains('scale__control--smaller')){
+    scaleValue -= MINSCALE;
+  }
+  else if (evt.target.classList.contains('scale__control--bigger')){
+    scaleValue += MINSCALE;
+  }
+  if (scaleValue < MINSCALE) {
+    scaleValue = MINSCALE;
+  }
+  else if (scaleValue > MAXSCALE) {
+    scaleValue = MAXSCALE;
+  }
+  scaleValueInput.value = `${scaleValue}%`;
 };
 
-scaleSmallerButton.addEventListener('click', onScaleSmallerButton);
+export {scaleFieldset, onScaleButton};

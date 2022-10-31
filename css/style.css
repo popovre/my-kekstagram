@@ -722,7 +722,7 @@ main {
   color: #0000ff;
 }
 
-.text__description--invalid {
+.text__description--valid {
   color: #008000;
 }
 /**
