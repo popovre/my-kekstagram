@@ -1,5 +1,5 @@
 import {MINSCALE, MAXSCALE, scaleClasses, effectClasses} from './constants.js';
-import {getIntToFloat} from './utils.js';
+import {getIntToFloat, removeCoincidenceClass} from './utils.js';
 
 
 const scaleFieldset = document.querySelector('.img-upload__scale');
@@ -25,21 +25,15 @@ const onScaleButton = (evt) => {
 
   const scaleValueFloat = getIntToFloat(scaleValue);
   const previewImageClassList = Array.from(previewImage.classList);
+  removeCoincidenceClass(previewImage, previewImageClassList, scaleClasses);
 
-  if (previewImageClassList.length > 0) {
-    let coincidenceScaleClass = '';
-    for (let i = 0; i < previewImageClassList.length; i++) {
-      coincidenceScaleClass = scaleClasses.find((currentClass) => currentClass === previewImageClassList[i]);
-      
-      if (coincidenceScaleClass.length !== 0) {
-        previewImage.classList.remove(coincidenceScaleClass);
-        break;}
-    }
-  }
   previewImage.classList.add(`img-upload__preview--scale${scaleValueFloat}`);
 };
 
 const onEffectsRadio = (evt) => {
+  const previewImageClassList = Array.from(previewImage.classList);
+  removeCoincidenceClass(previewImage, previewImageClassList, effectClasses);
+
   previewImage.classList.add(`effects__preview--${evt.target.value}`);
 };
 

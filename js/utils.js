@@ -36,3 +36,18 @@ String.prototype.delOneLast = function () {
 const getIntToFloat = (intNumber) => parseFloat(String(intNumber));
 
 export {getIntToFloat};
+
+const removeCoincidenceClass = (nodeElement, nodeElementArray, coincidenceArray) => {
+  if (nodeElementArray.length > 0) {
+    let coincidenceClass = '';
+    for (let i = 0; i < nodeElementArray.length; i++) {
+      coincidenceClass = coincidenceArray.find((constantClass) => constantClass === nodeElementArray[i]);
+      if (coincidenceClass.length > 0) {
+        nodeElement.classList.remove(coincidenceClass);
+        break;
+      }
+    }
+  }
+};
+
+export {removeCoincidenceClass};

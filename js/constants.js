@@ -43,7 +43,9 @@ const scaleClasses = [
   'img-upload__preview--scale100'
 ];
 
-const effectClasses = ['effects__preview--chrome',
+const effectClasses = [
+  'effects__preview--none',
+  'effects__preview--chrome',
   'effects__preview--sepia',
   'effects__preview--marvin',
   'effects__preview--phobos',
