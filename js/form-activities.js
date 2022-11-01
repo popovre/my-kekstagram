@@ -6,6 +6,7 @@ const scaleFieldset = document.querySelector('.img-upload__scale');
 const scaleValueInput = scaleFieldset.querySelector('.scale__control--value');
 const previewImage = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
+let coincidenceStyle;
 
 const onScaleButton = (evt) => {
   let scaleValue = +(scaleValueInput.value.delOneLast());
@@ -25,16 +26,16 @@ const onScaleButton = (evt) => {
 
   const scaleValueFloat = getIntToFloat(scaleValue);
   const previewImageClassList = Array.from(previewImage.classList);
-  removeCoincidenceClass(previewImage, previewImageClassList, scaleClasses);
+  removeCoincidenceClass(previewImage, previewImageClassList, scaleClasses, coincidenceStyle);
 
   previewImage.classList.add(`img-upload__preview--scale${scaleValueFloat}`);
 };
 
 const onEffectsRadio = (evt) => {
   const previewImageClassList = Array.from(previewImage.classList);
-  removeCoincidenceClass(previewImage, previewImageClassList, effectClasses);
+  removeCoincidenceClass(previewImage, previewImageClassList, effectClasses, coincidenceStyle);
 
   previewImage.classList.add(`effects__preview--${evt.target.value}`);
 };
 
-export {scaleFieldset, onScaleButton, effectsList, onEffectsRadio};
+export {scaleFieldset, onScaleButton, effectsList, onEffectsRadio, previewImage};
