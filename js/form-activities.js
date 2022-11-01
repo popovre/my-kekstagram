@@ -1,5 +1,6 @@
 import {MINSCALE, MAXSCALE, scaleClasses, effectClasses} from './constants.js';
 import {getIntToFloat, removeCoincidenceClass} from './utils.js';
+import './form-effects-features.js';
 
 
 const scaleFieldset = document.querySelector('.img-upload__scale');
