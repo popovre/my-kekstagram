@@ -1,6 +1,6 @@
 import {isEscapeKey} from './utils.js';
 import {uploadForm, onUploadFormSubmit} from './form-validation.js';
-import {scaleFieldset, onScaleButton, effectsList, onEffectsRadio, previewImage} from './form-activities.js';
+import {scaleFieldset, onScaleButton, effectsList, onEffectsRadio, previewImage, previewDefault, MAXSCALE} from './form-activities.js';
 
 const body = document.querySelector('body');
 const uploadFile = body.querySelector('#upload-file');
@@ -22,7 +22,7 @@ const openUploadModal = () => {
   uploadForm.addEventListener('submit', onUploadFormSubmit);
   scaleFieldset.addEventListener('click', onScaleButton);
   effectsList.addEventListener('input',onEffectsRadio);
-  previewImage.className = '';
+  previewDefault(previewImage, MAXSCALE);
 };
 
 const closeUploadModal = () => {

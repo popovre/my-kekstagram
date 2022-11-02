@@ -9,6 +9,11 @@ const previewImage = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 let coincidenceStyle;
 
+const previewDefault = (element, scaleDefault) => {
+  previewImage.className = '';
+  previewImage.style.transform = `scale(${getIntToFloat(scaleDefault) / 100})`;
+};
+
 const onScaleButton = (evt) => {
   let scaleValue = +(scaleValueInput.value.delOneLast());
   if (evt.target.classList.contains('scale__control--smaller')){
@@ -23,9 +28,11 @@ const onScaleButton = (evt) => {
   else if (scaleValue > MAXSCALE) {
     scaleValue = MAXSCALE;
   }
-  scaleValueInput.value = `${scaleValue}%`;
-
   const scaleValueFloat = getIntToFloat(scaleValue);
+
+  scaleValueInput.value = `${scaleValue}%`;
+  previewImage.style.transform = `scale(${scaleValueFloat / 100})`;
+
   const previewImageClassList = Array.from(previewImage.classList);
   removeCoincidenceClass(previewImage, previewImageClassList, scaleClasses, coincidenceStyle);
 
@@ -39,4 +46,4 @@ const onEffectsRadio = (evt) => {
   previewImage.classList.add(`effects__preview--${evt.target.value}`);
 };
 
-export {scaleFieldset, onScaleButton, effectsList, onEffectsRadio, previewImage};
+export {scaleFieldset, onScaleButton, effectsList, onEffectsRadio, previewImage, previewDefault, MAXSCALE};
