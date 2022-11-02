@@ -36,13 +36,6 @@ const MINSCALE = 25;
 const MAXSCALE = 100;
 export {MINSCALE, MAXSCALE};
 
-const scaleClasses = [
-  'img-upload__preview--scale25',
-  'img-upload__preview--scale50',
-  'img-upload__preview--scale75',
-  'img-upload__preview--scale100'
-];
-
 const effectClasses = [
   'effects__preview--none',
   'effects__preview--chrome',
@@ -52,7 +45,7 @@ const effectClasses = [
   'effects__preview--heat'
 ];
 
-export {scaleClasses,effectClasses};
+export {effectClasses};
 
 const EFFECTS = [
   {

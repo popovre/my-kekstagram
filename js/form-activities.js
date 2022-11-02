@@ -1,4 +1,4 @@
-import {MINSCALE, MAXSCALE, scaleClasses, effectClasses, EFFECTS} from './constants.js';
+import {MINSCALE, MAXSCALE, effectClasses, EFFECTS} from './constants.js';
 import {getIntToFloat, removeCoincidenceClass} from './utils.js';
 
 const scaleFieldset = document.querySelector('.img-upload__scale');
@@ -7,8 +7,6 @@ const previewImage = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 let coincidenceStyle;
 
-
-// слайдер
 const sliderEffectFieldset = document.querySelector('.effect-level');
 const sliderEffectWrapper = sliderEffectFieldset.querySelector('.effect-level__slider');
 const sliderEffectInput = sliderEffectFieldset.querySelector('.effect-level__value');
@@ -16,7 +14,6 @@ const DEFAULT = EFFECTS[0];
 
 let chosenEffect = DEFAULT;
 const isDefault = () => chosenEffect === DEFAULT;
-//
 
 const previewDefault = (element, scaleDefault) => {
   previewImage.className = '';
@@ -42,11 +39,6 @@ const onScaleButton = (evt) => {
 
   scaleValueInput.value = `${scaleValue}%`;
   previewImage.style.transform = `scale(${scaleValueFloat / 100})`;
-
-  const previewImageClassList = Array.from(previewImage.classList);
-  removeCoincidenceClass(previewImage, previewImageClassList, scaleClasses, coincidenceStyle);
-
-  previewImage.classList.add(`img-upload__preview--scale${scaleValueFloat}`);
 };
 
 const getSliderUpdate = () => {
@@ -74,8 +66,6 @@ const onEffectsRadio = (evt) => {
 
 const onUpdateSliderEffect = () => {
   previewImage.style.filter = 'none';
-  const previewImageClassList = Array.from(previewImage.classList);
-  removeCoincidenceClass(previewImage, previewImageClassList, effectClasses, coincidenceStyle);
   sliderEffectInput.value = '';
 
   if (isDefault()) {
@@ -84,7 +74,6 @@ const onUpdateSliderEffect = () => {
 
   const sliderValue = sliderEffectWrapper.noUiSlider.get();
   previewImage.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
-  previewImage.classList.add(`effects__preview--${chosenEffect.name}`);
   sliderEffectInput.value = sliderValue;
 };
 
