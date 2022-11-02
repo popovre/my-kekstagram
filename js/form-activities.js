@@ -101,7 +101,7 @@ noUiSlider.create(sliderEffectWrapper, {
 const resetEffect = () => {
   chosenEffect = DEFAULT;
   getSliderUpdate();
-}
+};
 
 getSliderUpdate();
 
