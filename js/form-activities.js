@@ -6,7 +6,7 @@ const scaleValueInput = scaleFieldset.querySelector('.scale__control--value');
 const previewImage = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 let coincidenceStyle;
-let chosenEffect;
+
 
 // слайдер
 const sliderEffectFieldset = document.querySelector('.effect-level');
@@ -14,7 +14,7 @@ const sliderEffectWrapper = sliderEffectFieldset.querySelector('.effect-level__s
 const sliderEffectInput = sliderEffectFieldset.querySelector('.effect-level__value');
 const DEFAULT = EFFECTS[0];
 
-chosenEffect = DEFAULT;
+let chosenEffect = DEFAULT;
 const isDefault = () => chosenEffect === DEFAULT;
 //
 
@@ -59,9 +59,9 @@ const getSliderUpdate = () => {
     step: chosenEffect.step,
     start: chosenEffect.max,
   });
-  // if (isDefault) {
-  //   sliderEffectWrapper.classList.add('hidden');
-  // }
+  if (isDefault()) {
+    sliderEffectWrapper.classList.add('hidden');
+  }
 };
 
 const onEffectsRadio = (evt) => {
