@@ -1,4 +1,4 @@
-import {EFFECTS} from './constants.js'
+import {EFFECTS} from './constants.js';
 
 const sliderEffectFieldset = document.querySelector('.effect-level');
 const sliderEffectWrapper = sliderEffectFieldset.querySelector('.effect-level__slider');
