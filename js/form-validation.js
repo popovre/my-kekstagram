@@ -10,7 +10,15 @@ const pristine = new Pristine(uploadForm, {
   errorTextTag: 'div',
 });
 
-const validateDescriptionText = (value) => value.length >= MINDESCRIPTIONLENGT && value.length <= (MAXDESCRIPTIONLENGT - 1);
+const validateDescriptionTextLimit = (value) => value.length < (MAXDESCRIPTIONLENGT);
+
+pristine.addValidator(
+  uploadForm.querySelector('.text__description'),
+  validateDescriptionTextLimit,
+  'Максимальная длина 140 символов'
+);
+
+const validateDescriptionText = (value) => value.length >= MINDESCRIPTIONLENGT && value.length <= MAXDESCRIPTIONLENGT;
 
 pristine.addValidator(
   uploadForm.querySelector('.text__description'),
