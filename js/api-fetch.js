@@ -1,3 +1,5 @@
+import {isEscapeKey} from './utils.js';
+
 const createLoader = (onError, dataHandler) => { fetch(
   'https://27.javascript.pages.academy/kekstagram-simple/data',
   {
@@ -20,6 +22,13 @@ const createLoader = (onError, dataHandler) => { fetch(
 };
 
 export {createLoader};
+
+const onModalEcsKeydown = (evt, child) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    document.body.removeChild(child);
+  }
+};
 
 const createUploader = (closeModal, successTemplate, errorTemplate, body) => { fetch(
   'https://27.javascript.pages.academy/kekstagram-simple',
