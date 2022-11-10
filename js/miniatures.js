@@ -1,6 +1,3 @@
-import {createGalleryPhotos} from './data.js';
-
-const galleryPhotos = createGalleryPhotos();
 const picturesWrapper = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -23,4 +20,4 @@ const getUsersGallery = (galleryValues) => {
   picturesWrapper.appendChild(pictureFragment);
 };
 
-export {getUsersGallery, galleryPhotos};
+export {getUsersGallery};

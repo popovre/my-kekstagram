@@ -1,5 +1,6 @@
-// let formData = new FormData();
-const createLoader = (onSuccess,onError) => { fetch(
+import {getUsersGallery} from './miniatures.js';
+
+const createLoader = (onSuccess, onError) => { fetch(
   'https://27.javascript.pages.academy/kekstagram-simple/data',
   {
     method: 'GET',
@@ -14,6 +15,7 @@ const createLoader = (onSuccess,onError) => { fetch(
   })
   .then((data) => {
     onSuccess(data);
+    getUsersGallery(data);
   })
   .catch((err) => {
     onError(err);
