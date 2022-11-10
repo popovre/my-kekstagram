@@ -1,6 +1,23 @@
-import {MINDESCRIPTIONLENGT,MAXDESCRIPTIONLENGT} from './constants.js';
+import {MINDESCRIPTIONLENGT, MAXDESCRIPTIONLENGT} from './constants.js';
+import {createUploader} from './api-fetch.js';
+
+const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
 const uploadForm = document.querySelector('.img-upload__form');
+
+const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
+
+const disableUploadSubmit = () => {
+  uploadSubmit.disabled = true;
+  uploadSubmit.textContent = 'публикую...';
+};
+
+const activateUploadSubmit = () => {
+  uploadSubmit.disabled = false;
+  uploadSubmit.textContent = 'опубликовать';
+};
+
 const pristine = new Pristine(uploadForm, {
   classTo: 'text',
   errorTextParent: 'text',
@@ -26,15 +43,24 @@ pristine.addValidator(
   'Введите от 20 до 140 символов'
 );
 
-const onUploadFormSubmit = (evt) => {
-  evt.preventDefault();
-  const isValid = pristine.validate();
+const addUploadFormSubmit = (close, success, error) => {
+  const onUploadFormSubmit = (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    disableUploadSubmit();
+    if(isValid) {
+      createUploader(close, success, error, new FormData(evt.target));
+    }
+    else{
+      activateUploadSubmit();
+    }
+  };
 
-  // if(!isValid) {
-  //   evt.preventDefault();
-  // }
+  uploadForm.addEventListener('submit', onUploadFormSubmit);
 };
 
-export {uploadForm, onUploadFormSubmit};
+export{successTemplate, errorTemplate};
+
+export {addUploadFormSubmit};
 
 

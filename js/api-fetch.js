@@ -1,6 +1,4 @@
-import {getUsersGallery} from './miniatures.js';
-
-const createLoader = (onSuccess, onError) => { fetch(
+const createLoader = (onError, dataHandler) => { fetch(
   'https://27.javascript.pages.academy/kekstagram-simple/data',
   {
     method: 'GET',
@@ -11,38 +9,48 @@ const createLoader = (onSuccess, onError) => { fetch(
     if (response.ok) {
       return response.json();
     }
-    throw new Error(`${response.status} ${response.statusText}`);
+    throw new Error;
   })
   .then((data) => {
-    onSuccess(data);
-    getUsersGallery(data);
+    dataHandler(data);
   })
-  .catch((err) => {
-    onError(err);
+  .catch(() => {
+    onError('галерея недоступна, обновите страницу...');
   });
 };
 
-createLoader(console.log, console.error);
+export {createLoader};
 
-const createUploader = (onSuccess, onError) => { fetch(
-  'https://27.javascript.pages.academy/kekstagram-simple/data',
+const createUploader = (closeModal, successTemplate, errorTemplate, body) => { fetch(
+  'https://27.javascript.pages.academy/kekstagram-simple',
   {
     method: 'POST',
-    credentials: 'same-origin',
+    body
   },
 )
   .then((response) => {
     if (response.ok) {
-      return response.json();
+      closeModal();
+      const successFragment = document.createDocumentFragment();
+      const success = successTemplate.cloneNode(true);
+      successFragment.appendChild(success);
+      document.body.appendChild(successFragment);
     }
-    throw new Error(`${response.status} ${response.statusText}`);
+    else {
+      closeModal();
+      const errorFragment = document.createDocumentFragment();
+      const error = errorTemplate.cloneNode(true);
+      errorFragment.appendChild(error);
+      document.body.appendChild(errorFragment);
+    }
   })
-  .then((data) => {
-    onSuccess('Результат', data);
-  })
-  .catch((err) => {
-    onError(err);
+  .catch(() => {
+    closeModal();
+    const errorFragment = document.createDocumentFragment();
+    const error = errorTemplate.cloneNode(true);
+    errorFragment.appendChild(error);
+    document.body.appendChild(errorFragment);
   });
 };
-// createUploader(console.log, console.error);
-// export {createLoader};
+
+export {createUploader};
