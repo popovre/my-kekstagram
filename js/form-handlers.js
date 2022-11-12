@@ -38,6 +38,7 @@ const closeUploadModal = () => {
 
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const errorButton = errorTemplate.querySelector('.error__button');
 const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
 
 const disableUploadSubmit = (domElement) => {
@@ -50,10 +51,54 @@ const activateUploadSubmit = (domElement) => {
   domElement.textContent = 'опубликовать';
 };
 
-const onSuccessSend = () => {
-  closeUploadModal();
+const createSuccessMessage = () => {
   const success = successTemplate.cloneNode(true);
   document.body.appendChild(success);
+};
+
+const removeSuccessListeners = (escapeKey, buttonClick, mouseClick) => {
+  const successButton = document.querySelector('.success__button');
+  document.removeEventListener('keydown', escapeKey);
+  successButton.removeEventListener('click', buttonClick);
+  document.removeEventListener('click', mouseClick);
+};
+
+const removeSuccessMessage = () => {
+  const element = document.querySelector('.success');
+  removeSuccessListeners(onSuccessEcsKeydown, onSuccessButtonClick, onDocumentClick);
+  document.body.removeChild(element);
+};
+
+const onSuccessEcsKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    removeSuccessMessage();
+  }
+};
+const onSuccessButtonClick = () => {
+  removeSuccessMessage();
+
+};
+const onDocumentClick = (evt) => {
+  const element = document.querySelector('.success__inner');
+  const withinBoundaries = evt.composedPath().includes(element);
+
+  if (!withinBoundaries) {
+    removeSuccessMessage();
+  }
+};
+
+const addSuccessListeners = (escapeKey, buttonClick, mouseClick) => {
+  const successButton = document.querySelector('.success__button');
+  document.addEventListener('keydown', escapeKey);
+  successButton.addEventListener('click', buttonClick);
+  document.addEventListener('click', mouseClick);
+};
+
+const onSuccessSend = () => {
+  closeUploadModal();
+  createSuccessMessage();
+  addSuccessListeners(onSuccessEcsKeydown, onSuccessButtonClick, onDocumentClick);
 };
 
 const onErrorSend = () => {
