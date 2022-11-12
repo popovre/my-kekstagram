@@ -1,5 +1,5 @@
 const INPUT_DATA_SOURCE = 'https://27.javascript.pages.academy/kekstagram-simple/data';
-const OUTPUT_DATA_SOURCE = 'https://27.javascript.pages.academy/kekstagram-simple';
+const OUTPUT_DATA_SOURCE = 'https://27.javascript.pages.academy/kekstagram-simpl';
 
 const getImageData = (onSuccess, onError) => {
   fetch (INPUT_DATA_SOURCE)

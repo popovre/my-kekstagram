@@ -38,7 +38,6 @@ const closeUploadModal = () => {
 
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const errorButton = errorTemplate.querySelector('.error__button');
 const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
 
 const disableUploadSubmit = (domElement) => {
@@ -51,59 +50,101 @@ const activateUploadSubmit = (domElement) => {
   domElement.textContent = 'опубликовать';
 };
 
-const createSuccessMessage = () => {
-  const success = successTemplate.cloneNode(true);
-  document.body.appendChild(success);
+const createMessage = (status) => {
+  if (status) {
+    const success = successTemplate.cloneNode(true);
+    document.body.appendChild(success);
+  }
+  else {
+    const error = errorTemplate.cloneNode(true);
+    document.body.appendChild(error);
+  }
 };
 
-const removeSuccessListeners = (escapeKey, buttonClick, mouseClick) => {
-  const successButton = document.querySelector('.success__button');
+const removeMessageListeners = (escapeKey, buttonClick, mouseClick, status) => {
+  if (status) {
+    const messageButton = document.querySelector('.success__button');
+  }
+  const messageButton = document.querySelector('.error__button');
+
   document.removeEventListener('keydown', escapeKey);
-  successButton.removeEventListener('click', buttonClick);
+  messageButton.removeEventListener('click', buttonClick);
   document.removeEventListener('click', mouseClick);
 };
 
-const removeSuccessMessage = () => {
-  const element = document.querySelector('.success');
-  removeSuccessListeners(onSuccessEcsKeydown, onSuccessButtonClick, onDocumentClick);
-  document.body.removeChild(element);
+const removeMessage = (status) => {
+  if (status) {
+    const element = document.querySelector('.success');
+    removeMessageListeners(onSuccessEcsKeydown, onSuccessButtonClick, onSuccessDocumentClick, status);
+    document.body.removeChild(element);
+  }
+  else {
+    const element = document.querySelector('.error');
+    removeMessageListeners(onErrorEcsKeydown, onErrorButtonClick, onErrorDocumentClick, status);
+    document.body.removeChild(element);
+  }
 };
 
 const onSuccessEcsKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    removeSuccessMessage();
+    removeMessage(true);
   }
 };
 const onSuccessButtonClick = () => {
-  removeSuccessMessage();
-
+  removeMessage(true);
 };
-const onDocumentClick = (evt) => {
+const onSuccessDocumentClick = (evt) => {
   const element = document.querySelector('.success__inner');
   const withinBoundaries = evt.composedPath().includes(element);
 
   if (!withinBoundaries) {
-    removeSuccessMessage();
+    removeMessage(true);
   }
 };
 
-const addSuccessListeners = (escapeKey, buttonClick, mouseClick) => {
-  const successButton = document.querySelector('.success__button');
+const onErrorEcsKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    removeMessage(false);
+  }
+};
+const onErrorButtonClick = () => {
+  removeMessage(false);
+};
+const onErrorDocumentClick = (evt) => {
+  const element = document.querySelector('.error__inner');
+  const withinBoundaries = evt.composedPath().includes(element);
+
+  if (!withinBoundaries) {
+    removeMessage(false);
+  }
+};
+
+const addMessageListeners = (escapeKey, buttonClick, mouseClick, status) => {
+  if (status) {
+    const messageButton = document.querySelector('.success__button');
+  }
+  else {
+    const messageButton = document.querySelector('.error__button');
+  }
   document.addEventListener('keydown', escapeKey);
-  successButton.addEventListener('click', buttonClick);
+  messageButton.addEventListener('click', buttonClick);
   document.addEventListener('click', mouseClick);
+  // здесь проблемка
 };
 
 const onSuccessSend = () => {
   closeUploadModal();
-  createSuccessMessage();
-  addSuccessListeners(onSuccessEcsKeydown, onSuccessButtonClick, onDocumentClick);
+  const status = true;
+  createMessage(status);
+  addMessageListeners(onSuccessEcsKeydown, onSuccessButtonClick, onSuccessDocumentClick, status);
 };
 
 const onErrorSend = () => {
-  const error = errorTemplate.cloneNode(true);
-  document.body.appendChild(error);
+  const status = false;
+  createMessage(status);
+  // addMessageListeners(onErrorEcsKeydown, onErrorButtonClick, onErrorDocumentClick, status);
 };
 
 const onUploadFormSubmit = (evt) => {
