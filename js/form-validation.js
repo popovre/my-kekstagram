@@ -43,24 +43,21 @@ pristine.addValidator(
   'Введите от 20 до 140 символов'
 );
 
-const addUploadFormSubmit = (close, success, error) => {
-  const onUploadFormSubmit = (evt) => {
-    evt.preventDefault();
-    const isValid = pristine.validate();
-    disableUploadSubmit();
-    if(isValid) {
-      createUploader(close, success, error, new FormData(evt.target));
-    }
-    else{
-      activateUploadSubmit();
-    }
-  };
-
-  uploadForm.addEventListener('submit', onUploadFormSubmit);
+const onUploadFormSubmit = (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  disableUploadSubmit();
+  if(isValid) {
+    createUploader(close, success, error, new FormData(evt.target));
+  }
+  else{
+    activateUploadSubmit();
+  }
 };
+
 
 export{successTemplate, errorTemplate};
 
-export {addUploadFormSubmit};
+export {onUploadFormSubmit};
 
 

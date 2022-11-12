@@ -1,4 +1,5 @@
 import {isEscapeKey} from './utils.js';
+import {onUploadFormSubmit} from './form-validation.js';
 import {scaleFieldset, onScaleButton, effectsList, onEffectsRadio, previewImage, previewDefault, MAXSCALE, resetEffect} from './form-activities.js';
 
 const body = document.querySelector('body');
@@ -20,7 +21,7 @@ const openUploadModal = () => {
   uploadModal.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onModalEcsKeydown);
-  // uploadForm.addEventListener('submit', onUploadFormSubmit);
+  uploadForm.addEventListener('submit', onUploadFormSubmit);
   scaleFieldset.addEventListener('click', onScaleButton);
   effectsList.addEventListener('input',onEffectsRadio);
   previewDefault(previewImage, MAXSCALE);
@@ -31,7 +32,7 @@ const closeUploadModal = () => {
   uploadModal.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onModalEcsKeydown);
-  // uploadForm.removeEventListener('submit', onUploadFormSubmit);
+  uploadForm.removeEventListener('submit', onUploadFormSubmit);
   scaleFieldset.removeEventListener('click', onScaleButton);
   effectsList.removeEventListener('input',onEffectsRadio);
   uploadForm.reset();

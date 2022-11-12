@@ -69,22 +69,23 @@ const EFFECTS = [
 export {EFFECTS};
 
 const ALERT_SHOW_TIME = 5000;
+const ALERT_MESSAGE = 'галерея недоступна, обновите страницу...';
 
-const showAlert = (message) => {
+const showAlert = () => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';
   alertContainer.style.left = '0';
   alertContainer.style.top = '0';
   alertContainer.style.right = '0';
-  alertContainer.style.padding = '5% 5%';
+  alertContainer.style.padding = '2% 2%';
   alertContainer.style.fontSize = '20px';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.borderBottomRightRadius = '10%';
   alertContainer.style.borderBottomLeftRadius = '10%';
   alertContainer.style.backgroundColor = '#cc6600';
 
-  alertContainer.textContent = message;
+  alertContainer.textContent = ALERT_MESSAGE;
 
   document.body.append(alertContainer);
 
