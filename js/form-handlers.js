@@ -64,12 +64,16 @@ const createMessage = (status) => {
 const removeMessageListeners = (escapeKey, buttonClick, mouseClick, status) => {
   if (status) {
     const messageButton = document.querySelector('.success__button');
+    document.removeEventListener('keydown', escapeKey);
+    messageButton.removeEventListener('click', buttonClick);
+    document.removeEventListener('click', mouseClick);
   }
-  const messageButton = document.querySelector('.error__button');
-
-  document.removeEventListener('keydown', escapeKey);
-  messageButton.removeEventListener('click', buttonClick);
-  document.removeEventListener('click', mouseClick);
+  else {
+    const messageButton = document.querySelector('.error__button');
+    document.removeEventListener('keydown', escapeKey);
+    messageButton.removeEventListener('click', buttonClick);
+    document.removeEventListener('click', mouseClick);
+  }
 };
 
 const removeMessage = (status) => {
@@ -107,10 +111,14 @@ const onErrorEcsKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     removeMessage(false);
+    // добавляем эскейп модалки
+    document.addEventListener('keydown', onModalEcsKeydown);
   }
 };
 const onErrorButtonClick = () => {
   removeMessage(false);
+  // добавляем эскейп модалки
+  document.addEventListener('keydown', onModalEcsKeydown);
 };
 const onErrorDocumentClick = (evt) => {
   const element = document.querySelector('.error__inner');
@@ -118,20 +126,24 @@ const onErrorDocumentClick = (evt) => {
 
   if (!withinBoundaries) {
     removeMessage(false);
+    // добавляем эскейп модалки
+    document.addEventListener('keydown', onModalEcsKeydown);
   }
 };
 
 const addMessageListeners = (escapeKey, buttonClick, mouseClick, status) => {
   if (status) {
     const messageButton = document.querySelector('.success__button');
+    document.addEventListener('keydown', escapeKey);
+    messageButton.addEventListener('click', buttonClick);
+    document.addEventListener('click', mouseClick);
   }
   else {
     const messageButton = document.querySelector('.error__button');
+    document.addEventListener('keydown', escapeKey);
+    messageButton.addEventListener('click', buttonClick);
+    document.addEventListener('click', mouseClick);
   }
-  document.addEventListener('keydown', escapeKey);
-  messageButton.addEventListener('click', buttonClick);
-  document.addEventListener('click', mouseClick);
-  // здесь проблемка
 };
 
 const onSuccessSend = () => {
@@ -144,7 +156,10 @@ const onSuccessSend = () => {
 const onErrorSend = () => {
   const status = false;
   createMessage(status);
-  // addMessageListeners(onErrorEcsKeydown, onErrorButtonClick, onErrorDocumentClick, status);
+  // сносим эскейп модалки
+  document.removeEventListener('keydown', onModalEcsKeydown);
+  //
+  addMessageListeners(onErrorEcsKeydown, onErrorButtonClick, onErrorDocumentClick, status);
 };
 
 const onUploadFormSubmit = (evt) => {
