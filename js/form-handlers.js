@@ -15,27 +15,6 @@ const onModalEcsKeydown = (evt) => {
   }
 };
 
-const openUploadModal = () => {
-  uploadModal.classList.remove('hidden');
-  body.classList.add('modal-open');
-  document.addEventListener('keydown', onModalEcsKeydown);
-  uploadForm.addEventListener('submit', onUploadFormSubmit);
-  scaleFieldset.addEventListener('click', onScaleButton);
-  effectsList.addEventListener('input',onEffectsRadio);
-  previewDefault(previewImage, MAXSCALE);
-  resetEffect();
-};
-
-const closeUploadModal = () => {
-  uploadModal.classList.add('hidden');
-  body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onModalEcsKeydown);
-  uploadForm.removeEventListener('submit', onUploadFormSubmit);
-  scaleFieldset.removeEventListener('click', onScaleButton);
-  effectsList.removeEventListener('input',onEffectsRadio);
-  uploadForm.reset();
-};
-
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
@@ -156,9 +135,7 @@ const onSuccessSend = () => {
 const onErrorSend = () => {
   const status = false;
   createMessage(status);
-  // сносим эскейп модалки
   document.removeEventListener('keydown', onModalEcsKeydown);
-  //
   addMessageListeners(onErrorEcsKeydown, onErrorButtonClick, onErrorDocumentClick, status);
 };
 
@@ -172,6 +149,27 @@ const onUploadFormSubmit = (evt) => {
     sendImageData(onSuccessSend, onErrorSend, formData);
   }
   activateUploadSubmit(uploadSubmit);
+};
+
+const openUploadModal = () => {
+  uploadModal.classList.remove('hidden');
+  body.classList.add('modal-open');
+  document.addEventListener('keydown', onModalEcsKeydown);
+  uploadForm.addEventListener('submit', onUploadFormSubmit);
+  scaleFieldset.addEventListener('click', onScaleButton);
+  effectsList.addEventListener('input',onEffectsRadio);
+  previewDefault(previewImage, MAXSCALE);
+  resetEffect();
+};
+
+const closeUploadModal = () => {
+  uploadModal.classList.add('hidden');
+  body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onModalEcsKeydown);
+  uploadForm.removeEventListener('submit', onUploadFormSubmit);
+  scaleFieldset.removeEventListener('click', onScaleButton);
+  effectsList.removeEventListener('input',onEffectsRadio);
+  uploadForm.reset();
 };
 
 export {openUploadModal, closeUploadModal, body, uploadModal};
