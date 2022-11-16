@@ -131,9 +131,8 @@ const onErrorSend = (status) => {
 const onUploadFormSubmit = (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
-  disableUploadSubmit(uploadSubmit);
-
   if(isValid) {
+    disableUploadSubmit(uploadSubmit);
     const formData = new FormData(evt.target);
     sendImageData(onSuccessSend, onErrorSend, formData);
   }
