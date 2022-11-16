@@ -5,7 +5,6 @@ const getRequiredLength = (text,length) => {
   return false;
 };
 
-// https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 const getRandomIntInclusive = (min, max) => {
   if(min < 0 || max < 0 || min === max){
     return NaN;

@@ -1,3 +1,6 @@
+import {showAlert} from './constants.js';
+import {getImageData} from './api-fetch.js';
 import './form-upload.js';
-import {getUsersGallery, galleryPhotos} from './miniatures.js';
-getUsersGallery(galleryPhotos);
+import {createGallery} from './miniatures.js';
+
+getImageData(createGallery, showAlert);

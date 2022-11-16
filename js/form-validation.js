@@ -1,6 +1,7 @@
-import {MINDESCRIPTIONLENGT,MAXDESCRIPTIONLENGT} from './constants.js';
+import {MINDESCRIPTIONLENGT, MAXDESCRIPTIONLENGT} from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
+
 const pristine = new Pristine(uploadForm, {
   classTo: 'text',
   errorTextParent: 'text',
@@ -26,14 +27,5 @@ pristine.addValidator(
   'Введите от 20 до 140 символов'
 );
 
-const onUploadFormSubmit = (evt) => {
-  const isValid = pristine.validate();
-
-  if(!isValid) {
-    evt.preventDefault();
-  }
-};
-
-export {uploadForm, onUploadFormSubmit};
-
+export {pristine};
 
