@@ -9,8 +9,8 @@ const uploadForm = document.querySelector('.img-upload__form');
 
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const success = successTemplate.cloneNode(true);
-const error = errorTemplate.cloneNode(true);
+const successMessage = successTemplate.cloneNode(true);
+const errorMessage = errorTemplate.cloneNode(true);
 const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
 
 const onModalEcsKeydown = (evt) => {
@@ -32,10 +32,10 @@ const activateUploadSubmit = (domElement) => {
 
 const createMessage = (status) => {
   if (status) {
-    document.body.appendChild(success);
+    document.body.appendChild(successMessage);
   }
   else {
-    document.body.appendChild(error);
+    document.body.appendChild(errorMessage);
   }
 };
 
