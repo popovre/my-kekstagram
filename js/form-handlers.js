@@ -5,8 +5,13 @@ import {scaleFieldset, onScaleButton, effectsList, onEffectsRadio, previewImage,
 
 const body = document.querySelector('body');
 const uploadModal = body.querySelector('.img-upload__overlay');
-
 const uploadForm = document.querySelector('.img-upload__form');
+
+const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const success = successTemplate.cloneNode(true);
+const error = errorTemplate.cloneNode(true);
+const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
 
 const onModalEcsKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -14,12 +19,6 @@ const onModalEcsKeydown = (evt) => {
     closeUploadModal();
   }
 };
-
-const successTemplate = document.querySelector('#success').content.querySelector('.success');
-const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const success = successTemplate.cloneNode(true);
-const error = errorTemplate.cloneNode(true);
-const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
 
 const disableUploadSubmit = (domElement) => {
   domElement.disabled = true;
