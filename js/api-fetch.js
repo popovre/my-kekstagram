@@ -28,12 +28,12 @@ const sendImageData = (onSuccess, onError, body) => {
     })
     .then((response) => {
       if (response.ok) {
-        return onSuccess();
+        return onSuccess(true);
       }
       throw new Error();
     })
     .catch(() => {
-      onError();
+      onError(false);
     });
 };
 

@@ -84,11 +84,8 @@ const showAlert = () => {
   alertContainer.style.borderBottomRightRadius = '10%';
   alertContainer.style.borderBottomLeftRadius = '10%';
   alertContainer.style.backgroundColor = '#cc6600';
-
   alertContainer.textContent = ALERT_MESSAGE;
-
   document.body.append(alertContainer);
-
   setTimeout(() => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
