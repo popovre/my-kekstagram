@@ -12,12 +12,15 @@ const errorTemplate = document.querySelector('#error').content.querySelector('.e
 const successMessage = successTemplate.cloneNode(true);
 const errorMessage = errorTemplate.cloneNode(true);
 const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
+let messageElement;
 
-const onModalEcsKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeUploadModal();
+const findSubmitMessage = () => {
+  let element = body.querySelector('.success');
+  if (element !== null) {
+    return element;
   }
+  element = body.querySelector('.error');
+  return element;
 };
 
 const disableUploadSubmit = (domElement) => {
@@ -30,7 +33,7 @@ const activateUploadSubmit = (domElement) => {
   domElement.textContent = 'опубликовать';
 };
 
-const createMessage = (status) => {
+const addSubmitMessage = (status) => {
   if (status) {
     document.body.appendChild(successMessage);
   }
@@ -39,32 +42,40 @@ const createMessage = (status) => {
   }
 };
 
-const removeMessageListeners = (escapeKey, buttonClick, mouseClick, status) => {
+const removeMessageListeners = (onDocEscKeydown, onMessageButtonClick, onDocumentMouseClick, status) => {
   let messageButton = document.querySelector('.error__button');
   if (status) {
     messageButton = document.querySelector('.success__button');
+    document.removeEventListener('keydown', onDocEscKeydown);
   }
-  document.removeEventListener('keydown', escapeKey);
-  messageButton.removeEventListener('click', buttonClick);
-  document.removeEventListener('click', mouseClick);
+  messageButton.removeEventListener('click', onMessageButtonClick);
+  document.removeEventListener('click', onDocumentMouseClick);
 };
 
 const removeMessage = (status) => {
-  let element = document.querySelector('.error');
+  messageElement = findSubmitMessage();
   if (status) {
-    element = document.querySelector('.success');
-    removeMessageListeners(onSuccessEcsKeydown, onSuccessButtonClick, onSuccessDocumentClick, status);
+    removeMessageListeners(onDocumentEcsKeydown, onSuccessButtonClick, onSuccessDocumentClick, status);
   }
   else {
-    removeMessageListeners(onErrorEcsKeydown, onErrorButtonClick, onErrorDocumentClick, status);
+    removeMessageListeners(onDocumentEcsKeydown, onErrorButtonClick, onErrorDocumentClick, status);
   }
-  document.body.removeChild(element);
+  document.body.removeChild(messageElement);
 };
 
-function onSuccessEcsKeydown (evt) {
+function onDocumentEcsKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    removeMessage(true);
+    messageElement = findSubmitMessage();
+    if (messageElement === null) {
+      closeUploadModal();
+    }
+    else if (messageElement !== null && messageElement.classList.contains('success')) {
+      removeMessage(true);
+    }
+    else if (messageElement !== null && messageElement.classList.contains('error')) {
+      removeMessage(false);
+    }
   }
 }
 
@@ -81,17 +92,9 @@ function onSuccessDocumentClick (evt) {
   }
 }
 
-function onErrorEcsKeydown (evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    removeMessage(false);
-    document.addEventListener('keydown', onModalEcsKeydown);
-  }
-}
-
 function onErrorButtonClick () {
   removeMessage(false);
-  document.addEventListener('keydown', onModalEcsKeydown);
+  document.addEventListener('keydown', onDocumentEcsKeydown);
 }
 
 function onErrorDocumentClick (evt) {
@@ -100,32 +103,31 @@ function onErrorDocumentClick (evt) {
 
   if (!withinBoundaries) {
     removeMessage(false);
-    document.addEventListener('keydown', onModalEcsKeydown);
+    document.addEventListener('keydown', onDocumentEcsKeydown);
   }
 }
 
-const addMessageListeners = (escapeKey, buttonClick, mouseClick, status) => {
+const addMessageListeners = (onMessageButtonClick, onDocumentMouseClick, status) => {
   let messageButton = document.querySelector('.error__button');
   if (status) {
+    document.addEventListener('keydown', onDocumentEcsKeydown);
     messageButton = document.querySelector('.success__button');
   }
-  messageButton.addEventListener('click', buttonClick);
-  document.addEventListener('keydown', escapeKey);
-  document.addEventListener('click', mouseClick);
+  messageButton.addEventListener('click', onMessageButtonClick);
+  document.addEventListener('click', onDocumentMouseClick);
 };
 
 const onSuccessSend = (status) => {
   closeUploadModal();
   activateUploadSubmit(uploadSubmit);
-  createMessage(status);
-  addMessageListeners(onSuccessEcsKeydown, onSuccessButtonClick, onSuccessDocumentClick, status);
+  addSubmitMessage(status);
+  addMessageListeners(onSuccessButtonClick, onSuccessDocumentClick, status);
 };
 
 const onErrorSend = (status) => {
-  createMessage(status);
+  addSubmitMessage(status);
   activateUploadSubmit(uploadSubmit);
-  document.removeEventListener('keydown', onModalEcsKeydown);
-  addMessageListeners(onErrorEcsKeydown, onErrorButtonClick, onErrorDocumentClick, status);
+  addMessageListeners(onErrorButtonClick, onErrorDocumentClick, status);
 };
 
 const onUploadFormSubmit = (evt) => {
@@ -139,7 +141,7 @@ const onUploadFormSubmit = (evt) => {
 };
 
 const addModalListeners = () => {
-  document.addEventListener('keydown', onModalEcsKeydown);
+  document.addEventListener('keydown', onDocumentEcsKeydown);
   uploadForm.addEventListener('submit', onUploadFormSubmit);
   scaleFieldset.addEventListener('click', onScaleButton);
   effectsList.addEventListener('input',onEffectsRadio);
@@ -154,7 +156,7 @@ const openUploadModal = () => {
 };
 
 const removeModalListeners = () => {
-  document.removeEventListener('keydown', onModalEcsKeydown);
+  document.removeEventListener('keydown', onDocumentEcsKeydown);
   uploadForm.removeEventListener('submit', onUploadFormSubmit);
   scaleFieldset.removeEventListener('click', onScaleButton);
   effectsList.removeEventListener('input', onEffectsRadio);
