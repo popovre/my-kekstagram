@@ -94,7 +94,6 @@ function onSuccessDocumentClick (evt) {
 
 function onErrorButtonClick () {
   removeMessage(false);
-  document.addEventListener('keydown', onDocumentEcsKeydown);
 }
 
 function onErrorDocumentClick (evt) {
