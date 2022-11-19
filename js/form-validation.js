@@ -16,7 +16,7 @@ const validateDescriptionText = (value) => value.length >= MINDESCRIPTIONLENGT &
 pristine.addValidator(
   uploadForm.querySelector('.text__description'),
   validateDescriptionText,
-  'Введите от 20 до 140 символов'
+  `Введите от ${MINDESCRIPTIONLENGT} до ${MAXDESCRIPTIONLENGT} символов`
 );
 
 export {pristine};
