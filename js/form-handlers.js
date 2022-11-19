@@ -165,6 +165,7 @@ function closeUploadModal () {
   body.classList.remove('modal-open');
   removeModalListeners();
   uploadForm.reset();
+  pristine.reset();
 }
 
 export {openUploadModal, closeUploadModal, body, uploadModal};

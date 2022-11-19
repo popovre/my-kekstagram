@@ -42,7 +42,7 @@ const onScaleButton = (evt) => {
 };
 
 const getSliderUpdate = () => {
-  sliderEffectWrapper.classList.remove('hidden');
+  sliderEffectFieldset.classList.remove('hidden');
   sliderEffectWrapper.noUiSlider.updateOptions({
     range: {
       min: chosenEffect.min,
@@ -52,7 +52,7 @@ const getSliderUpdate = () => {
     start: chosenEffect.max,
   });
   if (isDefault()) {
-    sliderEffectWrapper.classList.add('hidden');
+    sliderEffectFieldset.classList.add('hidden');
   }
 };
 
