@@ -1,5 +1,5 @@
 import {MINSCALE, MAXSCALE, effectClasses, EFFECTS} from './constants.js';
-import {getIntToFloat, removeCoincidenceClass} from './utils.js';
+import {removeCoincidenceClass} from './utils.js';
 
 const scaleFieldset = document.querySelector('.img-upload__scale');
 const scaleValueInput = scaleFieldset.querySelector('.scale__control--value');
@@ -17,12 +17,12 @@ const isDefault = () => chosenEffect === DEFAULT;
 
 const previewDefault = (element, scaleDefault) => {
   previewImage.className = '';
-  previewImage.style.transform = `scale(${getIntToFloat(scaleDefault) / 100})`;
+  previewImage.style.transform = `scale(${Number.parseFloat(scaleDefault) / 100})`;
   previewImage.style.filter = 'none';
 };
 
 const onScaleButton = (evt) => {
-  let scaleValue = +(scaleValueInput.value.delOneLast());
+  let scaleValue = +(scaleValueInput.value.slice(0, -1));
   if (evt.target.classList.contains('scale__control--smaller')){
     scaleValue -= MINSCALE;
   }
@@ -35,10 +35,9 @@ const onScaleButton = (evt) => {
   else if (scaleValue > MAXSCALE) {
     scaleValue = MAXSCALE;
   }
-  const scaleValueFloat = getIntToFloat(scaleValue);
 
   scaleValueInput.value = `${scaleValue}%`;
-  previewImage.style.transform = `scale(${scaleValueFloat / 100})`;
+  previewImage.style.transform = `scale(${Number.parseFloat(scaleValue) / 100})`;
 };
 
 const getSliderUpdate = () => {
