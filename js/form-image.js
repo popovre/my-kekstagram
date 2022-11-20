@@ -1,11 +1,9 @@
-import {MINSCALE, MAXSCALE, effectClasses, EFFECTS} from './constants.js';
-import {getIntToFloat, removeCoincidenceClass} from './utils.js';
+import {MINSCALE, MAXSCALE, EFFECTS} from './constants.js';
 
 const scaleFieldset = document.querySelector('.img-upload__scale');
 const scaleValueInput = scaleFieldset.querySelector('.scale__control--value');
 const previewImage = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
-let coincidenceStyle;
 
 const sliderEffectFieldset = document.querySelector('.effect-level');
 const sliderEffectWrapper = sliderEffectFieldset.querySelector('.effect-level__slider');
@@ -17,12 +15,12 @@ const isDefault = () => chosenEffect === DEFAULT;
 
 const previewDefault = (element, scaleDefault) => {
   previewImage.className = '';
-  previewImage.style.transform = `scale(${getIntToFloat(scaleDefault) / 100})`;
+  previewImage.style.transform = `scale(${Number.parseFloat(scaleDefault) / 100})`;
   previewImage.style.filter = 'none';
 };
 
 const onScaleButton = (evt) => {
-  let scaleValue = +(scaleValueInput.value.delOneLast());
+  let scaleValue = +(scaleValueInput.value.slice(0, -1));
   if (evt.target.classList.contains('scale__control--smaller')){
     scaleValue -= MINSCALE;
   }
@@ -35,14 +33,13 @@ const onScaleButton = (evt) => {
   else if (scaleValue > MAXSCALE) {
     scaleValue = MAXSCALE;
   }
-  const scaleValueFloat = getIntToFloat(scaleValue);
 
   scaleValueInput.value = `${scaleValue}%`;
-  previewImage.style.transform = `scale(${scaleValueFloat / 100})`;
+  previewImage.style.transform = `scale(${Number.parseFloat(scaleValue) / 100})`;
 };
 
 const getSliderUpdate = () => {
-  sliderEffectWrapper.classList.remove('hidden');
+  sliderEffectFieldset.classList.remove('hidden');
   sliderEffectWrapper.noUiSlider.updateOptions({
     range: {
       min: chosenEffect.min,
@@ -52,16 +49,14 @@ const getSliderUpdate = () => {
     start: chosenEffect.max,
   });
   if (isDefault()) {
-    sliderEffectWrapper.classList.add('hidden');
+    sliderEffectFieldset.classList.add('hidden');
   }
 };
 
 const onEffectsRadio = (evt) => {
-  const previewImageClassList = Array.from(previewImage.classList);
-  removeCoincidenceClass(previewImage, previewImageClassList, effectClasses, coincidenceStyle);
   chosenEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
   getSliderUpdate();
-  previewImage.classList.add(`effects__preview--${evt.target.value}`);
+  previewImage.className = `effects__preview--${evt.target.value}`;
 };
 
 const onUpdateSliderEffect = () => {
