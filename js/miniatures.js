@@ -1,7 +1,7 @@
 const picturesWrapper = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const createGallery = (galleryValues) => {
+const renderGallery = (galleryValues) => {
   const pictureFragment = document.createDocumentFragment();
 
   galleryValues.forEach((image) => {
@@ -20,4 +20,4 @@ const createGallery = (galleryValues) => {
   picturesWrapper.appendChild(pictureFragment);
 };
 
-export {createGallery};
+export {renderGallery};
