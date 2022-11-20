@@ -1,9 +1,11 @@
-import {MINSCALE, MAXSCALE, EFFECTS} from './constants.js';
+import {MINSCALE, MAXSCALE, effectClasses, EFFECTS} from './constants.js';
+import {removeCoincidenceClass} from './utils.js';
 
 const scaleFieldset = document.querySelector('.img-upload__scale');
 const scaleValueInput = scaleFieldset.querySelector('.scale__control--value');
 const previewImage = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
+let coincidenceStyle;
 
 const sliderEffectFieldset = document.querySelector('.effect-level');
 const sliderEffectWrapper = sliderEffectFieldset.querySelector('.effect-level__slider');
@@ -54,9 +56,11 @@ const getSliderUpdate = () => {
 };
 
 const onEffectsRadio = (evt) => {
+  const previewImageClassList = Array.from(previewImage.classList);
+  removeCoincidenceClass(previewImage, previewImageClassList, effectClasses, coincidenceStyle);
   chosenEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
   getSliderUpdate();
-  previewImage.className = `effects__preview--${evt.target.value}`;
+  previewImage.classList.add(`effects__preview--${evt.target.value}`);
 };
 
 const onUpdateSliderEffect = () => {

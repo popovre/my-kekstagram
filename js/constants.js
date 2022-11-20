@@ -6,6 +6,17 @@ const MINSCALE = 25;
 const MAXSCALE = 100;
 export {MINSCALE, MAXSCALE};
 
+const effectClasses = [
+  'effects__preview--none',
+  'effects__preview--chrome',
+  'effects__preview--sepia',
+  'effects__preview--marvin',
+  'effects__preview--phobos',
+  'effects__preview--heat'
+];
+
+export {effectClasses};
+
 const EFFECTS = [
   {
     name: 'none',
