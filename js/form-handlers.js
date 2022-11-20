@@ -11,12 +11,8 @@ const uploadForm = document.querySelector('.img-upload__form');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
-let messageElement;
 
-const findSubmitMessage = () => {
-  const element = body.querySelector('.message');
-  return element;
-};
+const findSubmitMessage = () => body.querySelector('.message');
 
 const isSuccessMessage = () => findSubmitMessage().classList.contains('success');
 
@@ -53,16 +49,14 @@ const addSubmitMessage = (status) => {
 };
 
 const removeMessage = () => {
-  messageElement = findSubmitMessage();
   removeMessageListeners();
-  document.body.removeChild(messageElement);
+  document.body.removeChild(findSubmitMessage());
 };
 
 function onDocumentEcsKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    messageElement = findSubmitMessage();
-    if (messageElement) {
+    if (findSubmitMessage()) {
       removeMessage();
     }
     else {
