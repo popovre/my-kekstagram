@@ -1,7 +1,7 @@
 import {isEscapeKey} from './utils.js';
 import {sendImageData} from './api-fetch.js';
 import {pristine} from './form-validation.js';
-import {scaleFieldset, onScaleButton, effectsList, onEffectsRadio, previewImage, previewDefault, MAXSCALE, resetEffect} from './form-image.js';
+import {scaleFieldset, onScaleButtonClick, effectsList, onEffectRadioInput, previewImage, resetPreview, MAXSCALE, resetEffect} from './form-image.js';
 
 const body = document.querySelector('body');
 const uploadModal = body.querySelector('.img-upload__overlay');
@@ -29,17 +29,17 @@ const activateUploadSubmit = () => {
 const addMessageListeners = () => {
   const messageButton = document.querySelector('.message-button');
   if (isSuccessMessage()) {
-    document.addEventListener('keydown', onDocumentEcsKeydown);
+    document.addEventListener('keydown', onDocumentKeydown);
   }
   messageButton.addEventListener('click', onMessageButtonClick);
-  document.addEventListener('click', onDocumentOverlayClick);
+  document.addEventListener('click', onDocumentClick);
 };
 
 const removeMessageListeners = () => {
   if (isSuccessMessage()) {
-    document.removeEventListener('keydown', onDocumentEcsKeydown);
+    document.removeEventListener('keydown', onDocumentKeydown);
   }
-  document.removeEventListener('click', onDocumentOverlayClick);
+  document.removeEventListener('click', onDocumentClick);
 };
 
 const addSubmitMessage = (status) => {
@@ -53,7 +53,7 @@ const removeMessage = () => {
   document.body.removeChild(findSubmitMessage());
 };
 
-function onDocumentEcsKeydown (evt) {
+function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     if (findSubmitMessage()) {
@@ -69,7 +69,7 @@ function onMessageButtonClick () {
   removeMessage('button');
 }
 
-function onDocumentOverlayClick (evt) {
+function onDocumentClick (evt) {
   const element = document.querySelector('.message__inner');
   const withinBoundaries = element !== null && !element.contains(evt.target);
   if (withinBoundaries) {
@@ -99,18 +99,18 @@ const onUploadFormSubmit = (evt) => {
 };
 
 const addModalListeners = () => {
-  document.addEventListener('keydown', onDocumentEcsKeydown);
+  document.addEventListener('keydown', onDocumentKeydown);
   uploadForm.addEventListener('submit', onUploadFormSubmit);
-  scaleFieldset.addEventListener('click', onScaleButton);
-  effectsList.addEventListener('input', onEffectsRadio);
+  scaleFieldset.addEventListener('click', onScaleButtonClick);
+  effectsList.addEventListener('input', onEffectRadioInput);
   modalCloseButton.addEventListener('click', closeUploadModal);
 };
 
 const removeModalListeners = () => {
-  document.removeEventListener('keydown', onDocumentEcsKeydown);
+  document.removeEventListener('keydown', onDocumentKeydown);
   uploadForm.removeEventListener('submit', onUploadFormSubmit);
-  scaleFieldset.removeEventListener('click', onScaleButton);
-  effectsList.removeEventListener('input', onEffectsRadio);
+  scaleFieldset.removeEventListener('click', onScaleButtonClick);
+  effectsList.removeEventListener('input', onEffectRadioInput);
   modalCloseButton.removeEventListener('click', closeUploadModal);
 };
 
@@ -118,7 +118,7 @@ const openUploadModal = () => {
   uploadModal.classList.remove('hidden');
   body.classList.add('modal-open');
   addModalListeners();
-  previewDefault(previewImage, MAXSCALE);
+  resetPreview(previewImage, MAXSCALE);
   resetEffect();
 };
 
