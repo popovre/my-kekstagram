@@ -6,7 +6,7 @@ const MINSCALE = 25;
 const MAXSCALE = 100;
 export {MINSCALE, MAXSCALE};
 
-const EFFECTS = [
+const imageEffects = [
   {
     name: 'none',
     min: 0,
@@ -55,7 +55,7 @@ const EFFECTS = [
   }
 ];
 
-export {EFFECTS};
+export {imageEffects};
 
 const ALERT_SHOW_TIME = 5000;
 const ALERT_MESSAGE = 'галерея недоступна, обновите страницу...';

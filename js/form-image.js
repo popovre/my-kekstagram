@@ -1,4 +1,4 @@
-import {MINSCALE, MAXSCALE, EFFECTS} from './constants.js';
+import {MINSCALE, MAXSCALE, imageEffects} from './constants.js';
 
 const scaleFieldset = document.querySelector('.img-upload__scale');
 const scaleValueInput = scaleFieldset.querySelector('.scale__control--value');
@@ -8,18 +8,18 @@ const effectsList = document.querySelector('.effects__list');
 const sliderEffectFieldset = document.querySelector('.effect-level');
 const sliderEffectWrapper = sliderEffectFieldset.querySelector('.effect-level__slider');
 const sliderEffectInput = sliderEffectFieldset.querySelector('.effect-level__value');
-const DEFAULT = EFFECTS[0];
+const defaultEffect = imageEffects[0];
 
-let chosenEffect = DEFAULT;
-const isDefault = () => chosenEffect === DEFAULT;
+let chosenEffect = defaultEffect;
+const isDefault = () => chosenEffect === defaultEffect;
 
-const previewDefault = (element, scaleDefault) => {
+const resetPreview = (element, scaleDefault) => {
   previewImage.className = '';
   previewImage.style.transform = `scale(${Number.parseFloat(scaleDefault) / 100})`;
   previewImage.style.filter = 'none';
 };
 
-const onScaleButton = (evt) => {
+const onScaleButtonClick = (evt) => {
   let scaleValue = +(scaleValueInput.value.slice(0, -1));
   if (evt.target.classList.contains('scale__control--smaller')){
     scaleValue -= MINSCALE;
@@ -38,7 +38,7 @@ const onScaleButton = (evt) => {
   previewImage.style.transform = `scale(${Number.parseFloat(scaleValue) / 100})`;
 };
 
-const getSliderUpdate = () => {
+const updateSlider = () => {
   sliderEffectFieldset.classList.remove('hidden');
   sliderEffectWrapper.noUiSlider.updateOptions({
     range: {
@@ -53,13 +53,13 @@ const getSliderUpdate = () => {
   }
 };
 
-const onEffectsRadio = (evt) => {
-  chosenEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
-  getSliderUpdate();
+const onEffectRadioInput = (evt) => {
+  chosenEffect = imageEffects.find((effect) => effect.name === evt.target.value);
+  updateSlider();
   previewImage.className = `effects__preview--${evt.target.value}`;
 };
 
-const onUpdateSliderEffect = () => {
+const onSliderEffectUpdate = () => {
   previewImage.style.filter = 'none';
   sliderEffectInput.value = '';
 
@@ -74,22 +74,22 @@ const onUpdateSliderEffect = () => {
 
 noUiSlider.create(sliderEffectWrapper, {
   range: {
-    min: DEFAULT.min,
-    max: DEFAULT.max,
+    min: defaultEffect.min,
+    max: defaultEffect.max,
   },
-  start: DEFAULT.max,
-  step: DEFAULT.step,
+  start: defaultEffect.max,
+  step: defaultEffect.step,
   connect: 'lower',
 });
 
 const resetEffect = () => {
-  chosenEffect = DEFAULT;
-  getSliderUpdate();
+  chosenEffect = defaultEffect;
+  updateSlider();
 };
 
-getSliderUpdate();
+updateSlider();
 
-sliderEffectWrapper.noUiSlider.on('update', onUpdateSliderEffect);
+sliderEffectWrapper.noUiSlider.on('update', onSliderEffectUpdate);
 
-export {scaleFieldset, onScaleButton, effectsList, onEffectsRadio, previewImage, previewDefault, MAXSCALE, resetEffect};
+export {scaleFieldset, onScaleButtonClick, effectsList, onEffectRadioInput, previewImage, resetPreview, MAXSCALE, resetEffect};
 
